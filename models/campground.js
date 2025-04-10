@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// キャンプ場のデータベースのスキーマ
 const campgroundSchema = new Schema({
     title: String,
     price: String,
@@ -8,4 +9,5 @@ const campgroundSchema = new Schema({
     location: String,
 });
 
+// キャンプ場のデータベースのモデル
 module.exports = mongoose.model("Campground", campgroundSchema);
