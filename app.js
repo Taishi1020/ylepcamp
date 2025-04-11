@@ -19,6 +19,9 @@ const app = express()
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+// expressに対して、フォームにデータを送信するときに、データを解析する
+app.use(express.urlencoded({extended: true}));
+
 
 // ホーム画面
 app.get("/", (req, res) => {
@@ -31,11 +34,23 @@ app.get("/campgrounds", async (req, res) => {
     res.render("campgrounds/index", {campgrounds});
 });
 
+// キャンプ場の作成画面
+app.get("/campgrounds/new", (req, res) => {
+    res.render("campgrounds/new");
+})
+
 // キャンプ場の詳細画面
 app.get("/campgrounds/:id", async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     res.render("campgrounds/show", {campground});
 });
+
+// キャンプ場の作成
+app.post("/campgrounds", async (req, res) => {
+    const campground = new Campground(req.body.campground);
+    await campground.save();
+    res.redirect(`/campgrounds/${campground._id}`);
+})
 
 // ポート設定
 app.listen(3000, () => {
