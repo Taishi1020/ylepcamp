@@ -68,6 +68,13 @@ app.put("/campgrounds/:id", async (req, res) => {
     res.redirect(`/campgrounds/${campground._id}`);
 })
 
+// キャンプを削除する
+app.delete("/campgrounds/:id", async (req, res) => {
+    const {id} = req.params;
+    await Campground.findByIdAndDelete(id);
+    res.redirect("/campgrounds");
+})
+
 // ポート設定
 app.listen(3000, () => {
     console.log("ポート3000番で起動中");
