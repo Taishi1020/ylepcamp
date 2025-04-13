@@ -18,6 +18,7 @@ mongoose.connect("mongodb://localhost:27017/campground", {
 
 const app = express()
 
+// テンプレートエンジンの設定(ミドルウェアの設定)
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 // expressに対して、フォームにデータを送信するときに、データを解析する
